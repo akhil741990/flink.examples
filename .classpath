@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/flink-csv-1.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/flink-dist_2.11-1.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/flink-json-1.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/flink-shaded-zookeeper-3.4.14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/flink-table_2.11-1.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/flink-table-blink_2.11-1.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/log4j-1.2-api-2.12.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/log4j-api-2.12.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/log4j-core-2.12.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/ML/flink_binary/flink/lib/log4j-slf4j-impl-2.12.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/.m2/repository/org/apache/flink/flink-connector-kafka_2.11/1.13.2/flink-connector-kafka_2.11-1.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/akhil/.m2/repository/org/apache/kafka/kafka-clients/2.7.1/kafka-clients-2.7.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
