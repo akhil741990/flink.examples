@@ -1,6 +1,0 @@
-org\soul\BatchJob.class
-org\soul\serde\LineItem.class
-org\soul\StreamingJob.class
-org\soul\KafkaSourceToSink.class
-org\soul\serde\LiSerdeExample.class
-org\soul\serde\LineItemSerializationSchema.class
