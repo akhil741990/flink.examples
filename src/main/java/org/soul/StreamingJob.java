@@ -28,6 +28,7 @@ import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
@@ -60,6 +61,9 @@ public class StreamingJob {
 		// set up the streaming execution environment
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
+		
+		env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+		env.getConfig().setAutoWatermarkInterval(1000L);
 		/*
 		 * Here, you can start creating your execution plan for Flink.
 		 *
@@ -92,22 +96,23 @@ public class StreamingJob {
 		
 		DataStream<String> stream = env
 				.addSource(new FlinkKafkaConsumer<>("tpch_lineitem",  new SimpleStringSchema(), properties));
-		
-		DataStream<LineItem> liStream = stream.map(json -> om.readValue(json, LineItem.class));
-		
-		
-		//liStream.print();
+//		stream.print();
+		DataStream<LineItem> liStream = stream.map(json -> om.readValue(json, LineItem.class))
+				.assignTimestampsAndWatermarks(new LiTimeAssigner());
+//
+//																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														
+//		liStream.print();
 
 		liStream
-			.keyBy("shipDate")
-			.window(TumblingEventTimeWindows.of(Time.seconds(10)))
-			.sum("quantity")
-		    .addSink(
-				new FlinkKafkaProducer<LineItem>(
-					"flink_li_count",
-					new LineItemSerializationSchema("flink_li_count"),
-					properties,
-					FlinkKafkaProducer.Semantic.EXACTLY_ONCE));
+			.keyBy(li -> li.getShipMode())
+			.timeWindow(Time.seconds(60))
+			.apply(new LiCountWindowFunction()).print();
+//		    .addSink(
+//				new FlinkKafkaProducer<LineItem>(
+//					"flink_li_count",
+//					new LineItemSerializationSchema("flink_li_count"),
+//					properties,
+//					FlinkKafkaProducer.Semantic.EXACTLY_ONCE));
 		
 	
 		
