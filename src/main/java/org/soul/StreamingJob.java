@@ -106,7 +106,7 @@ public class StreamingJob {
 		liStream
 			.keyBy(li -> li.getShipMode())
 			.timeWindow(Time.seconds(60))
-			.apply(new LiCountWindowFunction()).print();
+			.apply(new LiTopNQuantity()).print();
 //		    .addSink(
 //				new FlinkKafkaProducer<LineItem>(
 //					"flink_li_count",
