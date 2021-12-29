@@ -64,7 +64,15 @@ public class Transaction {
 	}
 	@Override
 	public String toString() {
-		return "Transaction [amount=" + amount + ", type=" + type + ", city=" + city + ", timestamp=" + timestamp + "]";
+		ObjectMapper om = new ObjectMapper();
+		try {
+			return om.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{\"amount\"=\"" + amount + "\", \"type\"=\"" + type + "\", \"city\"=\"" + city + "\", \"timestamp\"=\"" + timestamp + "\"}";
+
+		}
 	}
 	public Transaction(){
 		
