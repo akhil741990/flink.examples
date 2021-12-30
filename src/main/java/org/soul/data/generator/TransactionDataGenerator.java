@@ -38,6 +38,7 @@ public class TransactionDataGenerator implements SourceFunction<Transaction>{
 			TransactionType type =  TransactionType.getRandom();
 			Transaction tx = new Transaction(amt, type, cities[cityIndex], timestamp);
 			ctx.collectWithTimestamp(tx, Instant.now().toEpochMilli());
+			Thread.sleep(500);
 		}
 	}
 
