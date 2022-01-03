@@ -26,6 +26,7 @@ public class LiTopNQuantity implements WindowFunction<LineItem, List<LineItem>, 
 	   
 	   Stream<LineItem> stream = StreamSupport.stream(arg2.spliterator(), false);
 	   
+	   
 	   List<LineItem> lis =  stream.sorted(new Comparator<LineItem>() {
 
 		@Override

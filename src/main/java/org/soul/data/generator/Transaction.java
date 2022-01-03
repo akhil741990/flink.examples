@@ -9,10 +9,10 @@ public class Transaction {
 	TransactionType  type;
 	String city;
 	Long timestamp;
-	public long getAmount() {
+	public Long getAmount() {
 		return amount;
 	}
-	public void setAmount(long amount) {
+	public void setAmount(Long amount) {
 		this.amount = amount;
 	}
 	public TransactionType getType() {
@@ -27,10 +27,10 @@ public class Transaction {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public long getTimestamp() {
+	public Long getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(long timestamp) {
+	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
 	}
 	
