@@ -37,7 +37,7 @@ public class TransactionDataGenerator extends RichParallelSourceFunction<Transac
 		while(running){
 			int cityIndex = city.nextInt(cities.length);
 			Long timestamp =  Instant.now().toEpochMilli();
-			Long amt = (long) amount.nextInt(20) * 1000;
+			Long amt = (long) amount.nextInt(50) * 1000;
 			TransactionType type =  TransactionType.getRandom();
 			Transaction tx = new Transaction(amt, type, cities[cityIndex], timestamp);
 			ctx.collectWithTimestamp(tx, timestamp);

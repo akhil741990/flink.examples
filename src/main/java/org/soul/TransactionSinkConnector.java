@@ -42,14 +42,19 @@ public class TransactionSinkConnector {
 		
 		
 		//sourceStr.print();
-		//sourceStr.writeAsText("/home/akhil/ML/flink-data/",org.apache.flink.core.fs.FileSystem.WriteMode.OVERWRITE).setParallelism(1);
+		sourceStr.writeAsText("/home/akhil/ML/flink-data/",org.apache.flink.core.fs.FileSystem.WriteMode.OVERWRITE).setParallelism(1);
+		
+//		source
+//			.keyBy(tx -> tx.getCity())
+//			.timeWindow(Time.seconds(30))
+//			.apply(new TopNDebitTransactionPerCity())
+//			.print();
+		    
 		
 		source
-			.keyBy(tx -> tx.getCity())
-			.timeWindow(Time.seconds(30))
-			.apply(new TopNDebitTransactionPerCity())
+			.timeWindowAll(Time.seconds(30))
+			.apply(new TxAllWindow())
 			.print();
-		    
 		
 		env.execute("Flink File Sink Example");
 	}
