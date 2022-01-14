@@ -16,7 +16,7 @@ public class TableExample {
 			StreamTableEnvironment tEnv = StreamTableEnvironment.create(env);
 			DataStream<Transaction> source =  env.addSource(new TransactionDataGenerator());
 
-			//DataStream<String> sourceStr =  source.map(json -> json.toString());
+			DataStream<String> sourceStr =  source.map(json -> json.toString());
 			
 			
 			
@@ -24,9 +24,9 @@ public class TableExample {
 			
 			tEnv.createTemporaryView("transaction", tab);
 			
-			Table result = tEnv.sqlQuery("select * from transaction");
+			Table result = tEnv.sqlQuery("select sum(amount), city from transaction group by city");
 			
-			tEnv.toDataStream(result).print();
+			tEnv.toChangelogStream(result).print();
 			env.execute("Table Example");
 			
 		}
